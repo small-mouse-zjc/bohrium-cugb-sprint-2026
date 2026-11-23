@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\title{A Minimal Reproducible LaTeX Project}
+\author{Demo Author}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\input{sections/intro}
+
+\section{Methods}\label{sec:methods}
+The model is defined in Eq.~\eqref{eq:model} and summarised in Table~\ref{tab:results}.
+\begin{equation}
+  y = \beta_0 + \beta_1 x + \varepsilon \label{eq:model}
+\end{equation}
+Prior work \cite{knuth1984} established the notation.
+
+\begin{table}[htbp]
+\centering
+\caption{Summary results}\label{tab:results}
+\begin{tabular}{lrr}
+\toprule
+Model & $R^2$ & RMSE \\
+\midrule
+Baseline & 0.71 & 0.42 \\
+Ours     & 0.88 & 0.21 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{document}

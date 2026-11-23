@@ -1,0 +1,20 @@
+{
+  "note": "示例输出，非平台正式案例结果；字段形状与真实运行一致。",
+  "case_id": "demo-001",
+  "status": "success",
+  "result": {
+    "latex_source": {"main_tex": "main.tex", "files": ["main.tex", "refs.bib", "sections/intro.tex"]},
+    "compiled_pdf": {"path": "/app/output/main.pdf", "pages": 1, "bytes": 23389, "compile_ok": true},
+    "pdf_text_check": {"ok": true, "backend": "pdftotext", "chars": 923},
+    "compile": {
+      "engine": "xelatex", "passes": 3, "errors": [], "error_count": 0,
+      "missing_files": [], "undefined_refs": [], "undefined_cites": [],
+      "converged": true, "overfull_count": 0
+    },
+    "fix_plan": [],
+    "artifacts": {"pdf_path": "/app/output/main.pdf", "source_dir": "/app/output/source"}
+  },
+  "mode": "real_compile",
+  "evidence": [{"anchor": "编译日志", "note": "3 轮后引用收敛，无错误"}],
+  "uncertainty": []
+}

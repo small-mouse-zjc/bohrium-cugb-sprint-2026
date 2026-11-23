@@ -1,0 +1,13 @@
+{
+  "note": "示例输入，非平台正式案例。用于演示接口与调用方式。",
+  "case_id": "demo-001",
+  "main_tex": "main.tex",
+  "project_dir": "examples/demo_project",
+  "target": {
+    "template": "article",
+    "engine_hint": "xelatex",
+    "sections": ["intro", "methods"],
+    "need_bibliography": true,
+    "need_pdf": true
+  }
+}
