@@ -1,0 +1,8 @@
+{
+  "case_id": "demo-03",
+  "manuscript": "CO2 flooding can enhance oil recovery [1]. Prior work measured solubility [2].",
+  "references": [
+    {"id": "1", "author": "Li W.", "year": "2019", "title": "CO2 flooding in sandstone", "source": "Petroleum Science"},
+    {"id": "2", "author": "Wang H.", "year": "2021", "title": "Solubility measurement", "source": "Fluid Phase Equilibria"}
+  ]
+}

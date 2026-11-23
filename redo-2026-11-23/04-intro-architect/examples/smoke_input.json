@@ -1,0 +1,8 @@
+{
+  "case_id": "demo-04",
+  "topic": "CO2 geological storage",
+  "works": [
+    {"id": "w1", "title": "Li 2019, CO2 trapping mechanisms"},
+    {"id": "w2", "title": "Wang 2021, solubility in brine"}
+  ]
+}

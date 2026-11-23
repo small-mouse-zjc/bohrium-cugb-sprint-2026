@@ -1,0 +1,26 @@
+{
+  "case_id": "demo-08",
+  "status": "success",
+  "result": {
+    "reading_text": "CO2 geological storage reduces emissions. Introduction: trapping efficiency varies by formation. Methods: core-flooding on 25 samples at 40 °C. Results: recovery improved under continuous injection.",
+    "sections": [
+      {"title": "Introduction", "body": "CO2 storage reduces emissions; trapping efficiency varies by formation.", "page": 1},
+      {"title": "Methods", "body": "Core-flooding on 25 samples at 40 °C, 120 mD, 0.5 mL/min.", "page": 2}
+    ],
+    "tables": [
+      {"title": "Table 1. Experimental settings", "rows": [["Parameter", "Value"], ["Samples", "25"], ["Temperature", "40 °C"]], "columns": 2, "page": 2}
+    ],
+    "equations": [{"latex": "P_{res}=\\rho g h", "page": 2}],
+    "layout": {"pages": 3, "two_column_pages": [], "reading_order": "single"},
+    "backend": "pdftotext",
+    "artifacts": {
+      "reading_text_md": "reading.md",
+      "sections_json": "sections.json",
+      "tables_md": "tables.md"
+    }
+  },
+  "evidence": [
+    {"anchor": "p.1", "note": "Introduction 正文取自第 1 页。"}
+  ],
+  "uncertainty": []
+}

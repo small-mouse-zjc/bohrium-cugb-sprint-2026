@@ -1,0 +1,25 @@
+{
+  "case_id": "demo-04",
+  "status": "success",
+  "result": {
+    "introduction_draft": "CO2 geological storage is a key mitigation option. Existing studies describe trapping mechanisms [w1] and solubility behavior [w2], yet coupled modeling under reservoir conditions remains limited. This work develops a coupled model and validates it against core-flooding experiments.",
+    "paragraphs": [
+      {"part": "background", "text": "CO2 geological storage is a key mitigation option.", "refs": [], "source_ref": "w1", "status": "supported"},
+      {"part": "related_work", "text": "Existing studies describe trapping mechanisms [w1] and solubility behavior [w2].", "refs": ["w1", "w2"], "source_ref": "w1,w2", "status": "supported"},
+      {"part": "gap", "text": "Coupled modeling under reservoir conditions remains limited.", "refs": ["w1", "w2"], "source_ref": "w1,w2", "status": "inferred"},
+      {"part": "contribution", "text": "This work develops a coupled model and validates it against core-flooding experiments.", "refs": [], "source_ref": "w1,w2", "status": "supported"}
+    ],
+    "claims": [
+      {"claim": "Trapping mechanisms are documented in prior work.", "source_ref": "w1", "status": "supported"},
+      {"claim": "Solubility in brine has been measured.", "source_ref": "w2", "status": "supported"}
+    ],
+    "artifacts": {
+      "draft": "intro.md",
+      "review": "review.json"
+    }
+  },
+  "evidence": [
+    {"anchor": "related_work", "note": "w1/w2 均为输入真实文献；缺口由两篇共同推出。"}
+  ],
+  "uncertainty": []
+}

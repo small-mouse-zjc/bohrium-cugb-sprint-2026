@@ -1,0 +1,16 @@
+{
+  "case_id": "demo-07",
+  "status": "success",
+  "result": {
+    "latex_source": "\\documentclass{article}\n\\begin{document}\nHello world.\n\\end{document}\n",
+    "compiled_pdf": {"path": "main.pdf", "pages": 1, "bytes": 1200, "compile_ok": true},
+    "pdf_text_check": {"ok": true, "backend": "pdftotext", "chars": 12},
+    "compile": {"engine": "pdflatex", "errors": [], "missing_files": [],
+                "log_tail": "Output written on main.pdf (1 page)."},
+    "artifacts": {"pdf_path": "main.pdf", "source_main_tex": "main.tex"}
+  },
+  "evidence": [
+    {"anchor": "compile log", "note": "引擎单轮编译通过，无文献条目，无缺失文件。"}
+  ],
+  "uncertainty": []
+}

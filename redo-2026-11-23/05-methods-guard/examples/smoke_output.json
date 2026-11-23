@@ -1,0 +1,33 @@
+{
+  "case_id": "demo-05",
+  "status": "success",
+  "result": {
+    "method_experiment_draft": "本研究采用岩心驱替实验评价 CO2 驱油效果。实验共使用 25 块岩心样品，在 40 °C 恒温条件下开展驱替；岩心渗透率为 120 mD，注入速率设定为 0.5 mL/min。实验前对岩心进行洗油、烘干与饱和地层水处理，随后以恒定速率注入 CO2，记录压力与产出液变化。评价指标采用原油采收率，对比不同注入条件下的产出表现。受材料限制，随机种子、重复次数与具体仪器型号未在给定材料中说明，相关条目列入缺失项，不作补全。",
+    "parameter_table": [
+      {"name": "samples", "value": "25", "source": "sources[0]"},
+      {"name": "temperature", "value": "40 °C", "source": "sources[0]"},
+      {"name": "permeability", "value": "120 mD", "source": "sources[0]"},
+      {"name": "injection rate", "value": "0.5 mL/min", "source": "sources[0]"}
+    ],
+    "completeness": {
+      "data": "covered",
+      "preprocessing": "covered",
+      "method": "covered",
+      "training_inference": "covered",
+      "evaluation": "covered",
+      "results": "missing",
+      "missing_items": ["随机种子", "重复次数", "仪器型号", "定量结果数值"]
+    },
+    "reproducibility": "实验条件（样品数、温度、渗透率、注入速率）可按参数表复现；缺失的种子与重复次数需补充后方可完全复现。",
+    "artifacts": {
+      "draft_md": "methods.md",
+      "parameter_table_json": "params.json"
+    }
+  },
+  "evidence": [
+    {"anchor": "parameter_table", "note": "全部参数来自 sources[0]，未新增材料外数值。"}
+  ],
+  "uncertainty": [
+    {"issue": "材料未提供随机种子、重复次数与仪器型号。"}
+  ]
+}

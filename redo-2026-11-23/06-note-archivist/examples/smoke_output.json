@@ -1,0 +1,35 @@
+{
+  "case_id": "demo-06",
+  "status": "success",
+  "result": {
+    "structured_notes": "引言部分：论文围绕 CO2 地质封存展开，指出封存可降低排放，但捕集与封储效率随地层条件变化，这也是本文要解释的核心背景。方法部分：实验采用岩心驱替，共 25 块样品，温度 40 °C，渗透率 120 mD，注入速率 0.5 mL/min；材料未说明随机种子与重复次数。结果部分：连续注入条件下采收率有所改善，但结论仅限于小尺寸岩心柱塞，外推到储层尺度需谨慎。整体看，论文的发现建立在有限岩心实验之上，条件与样本规模构成主要边界。",
+    "reading_card": {
+      "problem": "CO2 封存的封储效率随地层条件变化，需要在受控实验中评价驱替表现。",
+      "data": "25 块岩心样品，渗透率 120 mD。",
+      "method": "40 °C 恒温岩心驱替，注入速率 0.5 mL/min，以采收率为评价指标。",
+      "findings": "连续注入条件下采收率有所改善。",
+      "limitations": "仅小尺寸岩心柱塞，未说明随机种子与重复次数，不宜直接外推储层尺度。",
+      "premises": "岩心性质可代表目标地层；驱替过程中的温度与注入条件受控。"
+    },
+    "section_alignment": [
+      {"section": "Introduction", "notes": "封存背景与效率随地层变化的问题。", "anchor": "§Introduction"},
+      {"section": "Methods", "notes": "岩心驱替设置：25 样品、40 °C、120 mD、0.5 mL/min。", "anchor": "§Methods"},
+      {"section": "Results", "notes": "连续注入改善采收率，但限于小柱塞。", "anchor": "§Results"}
+    ],
+    "anchor_verification": [
+      {"note_id": "S1", "anchor": "§Introduction", "verified": true},
+      {"note_id": "S2", "anchor": "§Methods", "verified": true},
+      {"note_id": "S3", "anchor": "§Results", "verified": true}
+    ],
+    "artifacts": {
+      "notes_md": "notes.md",
+      "reading_card_json": "reading_card.json"
+    }
+  },
+  "evidence": [
+    {"anchor": "§Methods", "note": "参数与输入 Methods 节一致。"}
+  ],
+  "uncertainty": [
+    {"issue": "原文未给出页码；锚点按小节标题定位。"}
+  ]
+}

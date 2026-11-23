@@ -1,0 +1,9 @@
+{
+  "case_id": "demo-01",
+  "source_language": "en",
+  "target_language": "zh",
+  "paragraphs": [
+    {"id": "P1", "text": "The reaction occurs at 25 °C for 30 minutes."},
+    {"id": "P2", "text": "Reservoir pressure reaches 35 MPa after 48 h."}
+  ]
+}

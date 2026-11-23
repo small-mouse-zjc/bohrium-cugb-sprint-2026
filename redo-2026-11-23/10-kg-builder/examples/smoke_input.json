@@ -1,0 +1,9 @@
+{
+  "case_id": "demo-10",
+  "text": "Solubility increases as pressure rises. CO2 is the injected fluid. The core plugs were 25 samples at 40 °C.",
+  "queries": [
+    "What increases CO2 solubility?",
+    "What is the injected fluid?",
+    "How many samples were used?"
+  ]
+}

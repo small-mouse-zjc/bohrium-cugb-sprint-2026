@@ -1,0 +1,41 @@
+{
+  "case_id": "demo-09",
+  "status": "success",
+  "result": {
+    "nanopublications": [
+      {
+        "assertion": "CO2 solubility increases with pressure.",
+        "subject": "CO2",
+        "relation": "solubility increases with",
+        "object": "pressure",
+        "evidence": "Solubility increases as pressure rises.",
+        "evidence_location": "§1, sentence 1",
+        "confidence": "high"
+      },
+      {
+        "assertion": "The experiment used 25 core plug samples.",
+        "subject": "core plugs",
+        "relation": "number of",
+        "object": "25 samples",
+        "evidence": "The core plugs were 25 samples at 40 °C.",
+        "evidence_location": "§1, sentence 2",
+        "confidence": "high"
+      }
+    ],
+    "provenance": {
+      "source": "Demo paper for case demo-09",
+      "method": "人工将观点句拆为原子主谓宾断言，并回配原文证据句",
+      "conditions": "结论限于给定实验条件；未外推到其他温压范围"
+    },
+    "coverage": {"source_assertions": 2, "covered": 2, "missing": []},
+    "artifacts": {
+      "nanopublications_json": "nanopubs.json",
+      "assertion_evidence_map_json": "map.json"
+    }
+  },
+  "evidence": [
+    {"anchor": "np1", "note": "证据句逐字取自原文第 1 句。"},
+    {"anchor": "np2", "note": "证据句逐字取自原文第 2 句。"}
+  ],
+  "uncertainty": []
+}

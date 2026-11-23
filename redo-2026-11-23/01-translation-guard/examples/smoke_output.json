@@ -1,0 +1,34 @@
+{
+  "case_id": "demo-01",
+  "status": "success",
+  "result": {
+    "translations": [
+      {
+        "id": "P1",
+        "source": "The reaction occurs at 25 °C for 30 minutes.",
+        "target": "反应在 25 °C 下进行 30 分钟。",
+        "terms": []
+      },
+      {
+        "id": "P2",
+        "source": "Reservoir pressure reaches 35 MPa after 48 h.",
+        "target": "48 小时后储层压力达到 35 MPa。",
+        "terms": ["reservoir", "储层"]
+      }
+    ],
+    "bilingual": [
+      {"id": "P1", "source": "The reaction occurs at 25 °C for 30 minutes.", "target": "反应在 25 °C 下进行 30 分钟。"},
+      {"id": "P2", "source": "Reservoir pressure reaches 35 MPa after 48 h.", "target": "48 小时后储层压力达到 35 MPa。"}
+    ],
+    "artifacts": {
+      "translations_md": "translations.md",
+      "translations_json": "translations.json"
+    },
+    "summary": "共 2 段，术语 1 个，无未译项。"
+  },
+  "evidence": [
+    {"id": "P1", "source_anchor": "P1", "note": "温度 25 °C、时长 30 分钟原样保留。"},
+    {"id": "P2", "source_anchor": "P2", "note": "压力 35 MPa、时长 48 h 原样保留；reservoir 译为储层。"}
+  ],
+  "uncertainty": []
+}

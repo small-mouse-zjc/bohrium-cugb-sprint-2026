@@ -1,0 +1,8 @@
+{
+  "case_id": "demo-06",
+  "sections": [
+    {"heading": "Introduction", "text": "CO2 storage reduces emissions but trapping efficiency varies by formation."},
+    {"heading": "Methods", "text": "Core-flooding on 25 samples at 40 °C, 120 mD, 0.5 mL/min."},
+    {"heading": "Results", "text": "Recovery factor improved under continuous injection; limited to small core plugs."}
+  ]
+}

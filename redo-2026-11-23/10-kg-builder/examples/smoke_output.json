@@ -1,0 +1,46 @@
+{
+  "case_id": "demo-10",
+  "status": "success",
+  "result": {
+    "graph": {
+      "nodes": [
+        {"id": "n1", "label": "CO2", "type": "fluid", "source": "text sentence 2"},
+        {"id": "n2", "label": "pressure", "type": "condition", "source": "text sentence 1"},
+        {"id": "n3", "label": "solubility", "type": "property", "source": "text sentence 1"},
+        {"id": "n4", "label": "25 samples", "type": "material", "source": "text sentence 3"}
+      ],
+      "edges": [
+        {"id": "e1", "source": "n2", "target": "n3", "relation": "increases",
+         "source_doc": "case", "evidence": "Solubility increases as pressure rises."},
+        {"id": "e2", "source": "n1", "target": "n3", "relation": "has",
+         "source_doc": "case", "evidence": "Solubility increases as pressure rises."},
+        {"id": "e3", "source": "n4", "target": "n1", "relation": "used_for",
+         "source_doc": "case", "evidence": "The core plugs were 25 samples at 40 °C."}
+      ]
+    },
+    "query_answers": [
+      {"query_id": "q1", "answer": "Pressure increases CO2 solubility.",
+       "trace": ["n2", "e1", "n3"],
+       "sources": {"matched_nodes": ["n2", "n3"], "matched_edges": ["e1"],
+                   "evidence": "Solubility increases as pressure rises."}},
+      {"query_id": "q2", "answer": "The injected fluid is CO2.",
+       "trace": ["n1"],
+       "sources": {"matched_nodes": ["n1"], "matched_edges": [],
+                   "evidence": "CO2 is the injected fluid."}},
+      {"query_id": "q3", "answer": "The experiment used 25 samples.",
+       "trace": ["n4"],
+       "sources": {"matched_nodes": ["n4"], "matched_edges": [],
+                   "evidence": "The core plugs were 25 samples at 40 °C."}}
+    ],
+    "coverage": {"queries": 3, "answerable": 3, "nodes": 4, "edges": 3, "isolated": []},
+    "artifacts": {
+      "graph_json": "graph.json",
+      "query_answers_json": "answers.json",
+      "coverage_json": "coverage.json"
+    }
+  },
+  "evidence": [
+    {"anchor": "e1", "note": "pressure→solubility 关系取自原文第 1 句。"}
+  ],
+  "uncertainty": []
+}

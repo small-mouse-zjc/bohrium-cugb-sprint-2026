@@ -1,0 +1,29 @@
+{
+  "case_id": "demo-02",
+  "status": "success",
+  "result": {
+    "polished_text": "The method may improve performance [3], using 25 samples.",
+    "changes": [
+      {
+        "original": "The method maybe can improve performance [3], and 25 samples were used.",
+        "revised": "The method may improve performance [3], using 25 samples.",
+        "reason": "去掉冗余 maybe can，简化被动句式；保留 may 的限定语气，未改主张。"
+      }
+    ],
+    "preserved": {
+      "numbers": ["25"],
+      "citations": ["[3]"],
+      "hedges": ["may"],
+      "negations": [],
+      "comparatives": []
+    },
+    "artifacts": {
+      "polished_md": "polished.md",
+      "audit_json": "audit.json"
+    }
+  },
+  "evidence": [
+    {"anchor": "全文", "note": "仅修措辞与句式，数字 25、引用 [3] 与限定语气保留。"}
+  ],
+  "uncertainty": []
+}
