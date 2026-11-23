@@ -24,7 +24,6 @@
 | 09 | nanopub-archivist | `nanopublications` 断言集 | 12 |
 | 10 | knowledge-graph-builder | `graph` + `query_answers` | 10 |
 
-
 ## GitHub
 
 独立仓库：https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026
@@ -40,7 +39,7 @@
 | 07 | [07-latex-build-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/07-latex-build-guard) |
 | 08 | [08-pdf-layout-parse](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/08-pdf-layout-parse) |
 | 09 | [09-nanopub-archivist](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/09-nanopub-archivist) |
-| 第1 | [10-knowledge-graph-builder](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/10-knowledge-graph-builder) |
+| 10 | [10-knowledge-graph-builder](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/10-knowledge-graph-builder) |
 
 ## 自检
 
