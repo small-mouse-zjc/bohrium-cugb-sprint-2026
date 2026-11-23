@@ -31,15 +31,15 @@
 
 | 题 | 仓库目录 |
 |---|---|
-| 第0 | [01-translation-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/01-translation-guard) |
-| 第0 | [02-academic-polish](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/02-academic-polish) |
-| 第0 | [03-citation-integrity](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/03-citation-integrity) |
-| 第0 | [04-intro-gap-architect](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/04-intro-gap-architect) |
-| 第0 | [05-methods-repro-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/05-methods-repro-guard) |
-| 第0 | [06-paper-note-archivist](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/06-paper-note-archivist) |
-| 第0 | [07-latex-build-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/07-latex-build-guard) |
-| 第0 | [08-pdf-layout-parse](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/08-pdf-layout-parse) |
-| 第0 | [09-nanopub-archivist](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/09-nanopub-archivist) |
+| 01 | [01-translation-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/01-translation-guard) |
+| 02 | [02-academic-polish](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/02-academic-polish) |
+| 03 | [03-citation-integrity](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/03-citation-integrity) |
+| 04 | [04-intro-gap-architect](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/04-intro-gap-architect) |
+| 05 | [05-methods-repro-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/05-methods-repro-guard) |
+| 06 | [06-paper-note-archivist](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/06-paper-note-archivist) |
+| 07 | [07-latex-build-guard](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/07-latex-build-guard) |
+| 08 | [08-pdf-layout-parse](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/08-pdf-layout-parse) |
+| 09 | [09-nanopub-archivist](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/09-nanopub-archivist) |
 | 第1 | [10-knowledge-graph-builder](https://github.com/small-mouse-zjc/bohrium-cugb-sprint-2026/tree/main/10-knowledge-graph-builder) |
 
 ## 自检
