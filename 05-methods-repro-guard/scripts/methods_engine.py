@@ -97,8 +97,10 @@ def check_completeness(section_text: str, required: Optional[List[str]] = None) 
             missing.append({"element": key, "label": meta["label"],
                             "hint": f"缺少『{meta['label']}』相关表述，请补写或说明材料缺口"})
     present_count = sum(1 for v in report.values() if v["present"])
+    present_labels = [report[k]["label"] for k in report if report[k]["present"]]
     return {
         "elements": report,
+        "six_elements": present_labels,
         "present_count": present_count,
         "required_count": len(required),
         "missing": missing,

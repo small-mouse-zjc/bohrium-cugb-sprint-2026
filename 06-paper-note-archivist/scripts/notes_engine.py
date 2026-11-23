@@ -258,13 +258,16 @@ def build_reading_card(fields: Dict[str, Any]) -> Dict[str, Any]:
         else:
             card[key] = {"value": val, "status": "reported", "label": meta["label"],
                          "anchor": fields.get(f"{key}_anchor", "")}
-    return {
-        "card": card,
-        "missing_fields": missing,
-        "comparable": not missing,
-        "advice": ("卡片字段齐全，可与同领域论文并排比较" if not missing
-                   else f"{len(missing)} 个字段未报告，已标注 not_reported，不得臆造"),
-    }
+    flat = {key: (card[key]["value"] if isinstance(card.get(key), dict) else "") for key in CARD_FIELDS}
+    out = {"card": card, "missing_fields": missing,
+           "comparable": not missing,
+           "advice": ("卡片字段齐全，可与同领域论文并排比较" if not missing
+                      else f"{len(missing)} 个字段未报告，已标注 not_reported，不得臆造")}
+    out.update(flat)
+    # 兼容 SKILL/官方契约里的短字段名
+    out["method"] = flat.get("method_conditions", "")
+    out["conditions"] = flat.get("premises", "")
+    return out
 
 
 # ---------------------------------------------------------------------------

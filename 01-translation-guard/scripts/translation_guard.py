@@ -55,7 +55,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 STATUS_OK = "success"
 STATUS_PARTIAL = "partial"
-STATUS_UNCERTAIN = "needs_review"
+STATUS_UNCERTAIN = "needs_attention"
 
 # 需保护元素模式（翻译前后必须一致）
 UNIT_RE = re.compile(
@@ -584,6 +584,13 @@ def pipeline(payload: Dict[str, Any], compact: bool = False,
                            "protect": prot, "restore": rest, "align": align_res,
                            "check_terms": term_res, "verify": ver, "evidence": ev}
     out["result"] = result
+    # 顶层证据与不确定性：方便直接落 result.json，避免 Agent 只搬 result 时缺字段
+    out["evidence"] = ev["evidence"] or [{"note": "未产生可定位译文证据"}]
+    out["uncertainty"] = [
+        {"id": i.get("id", ""), "issue": i.get("type", "") + ":" + i.get("detail", "")}
+        for i in (ver.get("issues", []) + align_res.get("issues", []) + term_res.get("issues", []))
+        if i
+    ] or [{"issue": "无自动化未决项", "action": "译文质量仍须人工复核"}]
 
     # 真实译文/双语对照落盘，避免只交核验表
     if outdir:

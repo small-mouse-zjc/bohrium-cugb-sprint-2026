@@ -57,7 +57,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 STATUS_OK = "success"
 STATUS_PARTIAL = "partial"
-STATUS_UNCERTAIN = "needs_review"
+STATUS_UNCERTAIN = "needs_attention"
 
 # 希腊字母 / 常见数学符号保真映射（Unicode 本身即目标，这里处理 OCR 常见误识）
 GREEK_FIX = {
@@ -837,18 +837,35 @@ def pipeline(payload: Dict[str, Any], compact: bool = False,
         overall = STATUS_PARTIAL
 
     full_text = "\n".join(r["text"] for r in order.get("ordered", []))
+    caption_items = captions.get("captions", [])
+    table_items = []
+    for i, t in enumerate(tables["tables"], 1):
+        same_page = [c for c in caption_items
+                     if c.get("kind") == "table" and c.get("page") == t["page"]]
+        caption = ""
+        if same_page:
+            nearest = min(same_page, key=lambda c: abs(float(c.get("y0", 0)) - float(t.get("y0", 0))))
+            caption = nearest.get("text", "")
+        table_items.append({
+            "id": "t%d" % i, "caption": caption,
+            "page": t["page"], "markdown": t["markdown"],
+            "rows": t["rows"], "cols": t["cols"],
+        })
     result = {
         "reading_text": full_text,
         "structure": sections["tree"],
         "sections": sections["sections"],
         "layout": {
             "pages": ver["stats"]["pages"],
+            "columns": 2 if order["stats"]["two_column_pages"] else 1,
             "two_column_pages": order["stats"]["two_column_pages"],
             "reading_order": "column-aware" if order["stats"]["two_column_pages"] else "single-column",
         },
-        "tables": [{"page": t["page"], "markdown": t["markdown"],
-                    "rows": t["rows"], "cols": t["cols"]} for t in tables["tables"]],
+        "tables": table_items,
         "formulas": formulas["formulas"],
+        "equations": [{"id": "e%d" % i, "text": f.get("text", ""),
+                       "page": f.get("page"), "number": f.get("number")}
+                      for i, f in enumerate(formulas["formulas"], 1)],
         "captions": captions["captions"],
         "evidence_index": evidence["evidence"],
         "verification": ver,
@@ -873,6 +890,14 @@ def pipeline(payload: Dict[str, Any], compact: bool = False,
             "evidence": evidence, "verify": ver,
         }
     out["result"] = result
+    # 顶层证据/不确定性：与 result.evidence_index / verification 同源
+    out["evidence"] = evidence["evidence"] or [{"note": "无可定位版面证据"}]
+    out["uncertainty"] = {
+        "problems": ver.get("problems", []),
+        "dropped_blocks": cleaned.get("dropped", []),
+        "reading_order_violations": order.get("violations", []),
+        "note": "无真实 PDF 解析后端时仅能 partial；表格/公式/双栏顺序须回原文复核",
+    }
 
     if outdir:
         import os

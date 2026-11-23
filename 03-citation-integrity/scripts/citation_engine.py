@@ -43,7 +43,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 STATUS_OK = "success"
 STATUS_PARTIAL = "partial"
-STATUS_UNCERTAIN = "needs_review"
+STATUS_UNCERTAIN = "needs_attention"
 
 CURRENT_YEAR = 2026
 
@@ -1248,6 +1248,13 @@ def pipeline(payload: Dict[str, Any], compact: bool = False,
             **({"claims": claims} if claims else {}),
         }
     out["result"] = result
+    # 顶层证据/不确定性：直接落 result.json 时不再依赖 Agent 手工搬运
+    out["evidence"] = result.get("evidence") or {}
+    out["uncertainty"] = {
+        "unresolved_citations": ren.get("unresolved", []),
+        "unresolved_claims": (claims or {}).get("suspicious_claims", []),
+        "consistency_problems": ver.get("problems", []),
+    }
     if checks.get("compare_before"):
         out["comparison"] = compare(checks["compare_before"],
                                     {"manuscript": manuscript, "entries": ren["entries"]})

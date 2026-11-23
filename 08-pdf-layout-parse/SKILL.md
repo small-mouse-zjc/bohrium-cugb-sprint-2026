@@ -33,6 +33,8 @@ description: 文献 PDF/版面解析。用于从真实 PDF 还原阅读顺序、
 }
 ```
 
+引擎另给 `formulas` 候选（原文文本、页码、编号）；`equations.latex` 由 Agent 复核后补写，不要把候选文本直接当 LaTeX。
+
 ## 工作流（最多 4 步）
 
 1. **解析**：有 PDF 先跑

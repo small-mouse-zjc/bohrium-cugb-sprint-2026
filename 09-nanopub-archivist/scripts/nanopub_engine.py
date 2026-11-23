@@ -290,6 +290,9 @@ def coverage_check(paragraph: str, assertions: List[Dict[str, Any]]) -> Dict[str
     ok = n >= recommended and not uncovered
     return {
         "ok": ok,
+        "source_assertions": len(sents),
+        "covered": len(covered),
+        "missing": uncovered,
         "assertion_count": n,
         "sentence_count": len(sents),
         "recommended_min_assertions": recommended,

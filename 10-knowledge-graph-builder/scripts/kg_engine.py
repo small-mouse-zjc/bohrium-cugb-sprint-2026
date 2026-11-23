@@ -139,7 +139,7 @@ def check_entity(entity: Dict[str, Any],
           and bool(quote) and identity_ok and grounded is not False and quote_ok is not False)
     return {
         "id": entity.get("id", ""),
-        "surface": surface, "type": etype, "type_zh": ENTITY_TYPE_ZH.get(etype, ""),
+        "surface": surface, "label": surface, "type": etype, "type_zh": ENTITY_TYPE_ZH.get(etype, ""),
         "source_id": source_id, "paragraph_id": paragraph_id, "quote": quote,
         "attribution": ("self" if attribution in AUTHOR_SELF else
                         "other" if attribution in OTHER_REPORT else attribution),
@@ -458,8 +458,27 @@ def query_graph(graph: Dict[str, Any], queries: List[Dict[str, Any]],
                     x["quote_in_source"] = _in_source(source_index, x["source_id"],
                                                       x["paragraph_id"], x["quote"])
 
+        source_ids = sorted({x.get("source_id", "") for x in evidence if x.get("source_id")})
+        if matched_edges:
+            answer_text = "；".join(
+                "%s -[%s]-> %s" % (e.get("subject", ""), e.get("relation", ""), e.get("object", ""))
+                for e in matched_edges[:3]
+            )
+        elif matched_nodes:
+            labels = []
+            for nid in matched_nodes[:5]:
+                n = _resolve(nid) or {}
+                labels.append(str(n.get("label") or n.get("surface") or nid))
+            answer_text = "命中节点：" + "、".join(dict.fromkeys(labels))
+        else:
+            answer_text = "未找到可回链答案"
         answers.append({
-            "query_id": qid, "query_type": qtype, "query": q,
+            "query_id": qid, "query_type": qtype,
+            "query": q.get("question") or q.get("text") or q.get("surface") or qid,
+            "query_obj": q,
+            "answer": answer_text,
+            "trace": matched_nodes + [e.get("id", "") for e in matched_edges],
+            "sources": source_ids,
             "matched_nodes": matched_nodes,
             "matched_edges": [e.get("id", "") for e in matched_edges],
             "subgraph": {"nodes": matched_nodes,
@@ -638,8 +657,13 @@ def coverage_check(graph: Dict[str, Any], query_result: Dict[str, Any]) -> Dict[
                        "detail": f"图谱仅 {len(nodes)} 节点 / {len(edges)} 边；真实案例建议覆盖更多段落"})
     critical = [i for i in issues if i["severity"] == "critical"]
     ok = not critical and q_traceable == q_total and q_total >= 3 and len(nodes) >= 2 and len(edges) >= 1
+    node_ids = {str(n.get("id", "")) for n in nodes if n.get("id")}
+    linked = {str(e.get("subject", "")) for e in edges} | {str(e.get("object", "")) for e in edges}
+    orphan_nodes = sorted(node_ids - linked)
     return {
         "ok": ok, "issues": issues, "entity_count": len(nodes), "edge_count": len(edges),
+        "queries_total": q_total, "queries_answerable": q_answered,
+        "nodes": len(nodes), "edges": len(edges), "orphan_nodes": orphan_nodes,
         "entity_types": ent_types, "relation_types": rel_types,
         "query_total": q_total, "query_answered": q_answered, "query_traceable": q_traceable,
         "note": "完整度是覆盖下限；实体/关系是否忠实、合并是否正确仍须回原文核对。",

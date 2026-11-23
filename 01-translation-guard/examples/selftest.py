@@ -104,7 +104,7 @@ check("T31 glossary basis present", any(
 
 # ---------- pipeline / compact ----------
 pipe = tg.pipeline(sample)
-check("T32 pipeline status", pipe["status"] in ("success", "partial", "needs_review"))
+check("T32 pipeline status", pipe["status"] in ("success", "partial", "needs_attention"))
 check("T33 pipeline has all steps", all(k in pipe["pipeline"] for k in
       ("segment", "glossary", "lock", "protect", "restore", "align", "check_terms", "verify", "evidence")))
 check("T34 summary present", "摘要" in pipe["result"]["summary"] or "段" in pipe["result"]["summary"])

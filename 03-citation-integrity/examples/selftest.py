@@ -53,7 +53,7 @@ check("T11 missing fields issue", any(i["type"] == "missing_fields" for i in out
 # version_variant（预印本vs正式版）虽不合并，但必须进入 needs_review 而非静默丢弃
 nv = ce.normalize([a, dict(v, id="v")])
 check("T11b version variant to review",
-      nv["stats"]["needs_review_count"] >= 1 and nv["status"] == "needs_review")
+      nv["stats"]["needs_review_count"] >= 1 and nv["status"] == "needs_attention")
 
 # ---------- 可编辑正文改写（T12-T13）----------
 ren_e = [{"id": "x", "old_number": 1}, {"id": "y", "old_number": 2}]
