@@ -11,9 +11,9 @@
 | 字段 | 必填 | 说明 |
 |---|---|---|
 | `graph` | 是 | `nodes[]` + `edges[]`；空判 partial |
-| `query_answers` | 是 | ≥3 个查询，含 answer/trace/sources |
+| `query_answers` | 是 | ≥3 个查询；每条含 `query_id` / `answer` / `trace` / `sources`（引擎给出 `matched_nodes` / `matched_edges` / `evidence`） |
 | `coverage` | 是 | 查询总数/可答数/节点/边/孤立点 |
-| `artifacts` | 是 | `graph_json`、`answers_json`、`coverage_json` 绝对路径，必须存在 |
+| `artifacts` | 是 | `graph_json`、`query_answers_json`、`coverage_json` 绝对路径，必须存在 |
 | `summary` | 否 | 节点/边/查询覆盖概况 |
 
 ## 硬规则
@@ -25,4 +25,5 @@
 - 不允许为凑规模重复造实体或边。
 - 孤立节点必须补边或进 `uncertainty`。
 - `status=success` 要求：图谱非空、查询≥3 且可答、`validate_result.py` 通过。
+
 

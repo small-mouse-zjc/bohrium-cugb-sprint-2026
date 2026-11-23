@@ -14,7 +14,7 @@
 | `sections` | 是 | 章节标题/正文/页码 |
 | `tables` | 是 | 表格标题/行列；无表格可为空数组 |
 | `equations` | 否 | 公式 LaTeX/页码 |
-| `layout` | 是 | 页数/栏数/阅读顺序 |
+| `layout` | 是 | 页数/双栏页数/阅读顺序 |
 | `artifacts` | 是 | `reading_text_md`、`sections_json`、`tables_md` 绝对路径，必须存在 |
 
 ## 硬规则

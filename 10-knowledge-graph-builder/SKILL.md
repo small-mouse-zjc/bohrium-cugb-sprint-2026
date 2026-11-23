@@ -29,7 +29,7 @@ description: 文献知识图谱构建。用于从真实论文语料抽取实体/
       {"query": "...", "answer": "...", "trace": ["n1", "e1", "n2"], "sources": ["s1"]}
     ],
     "coverage": {"queries_total": 3, "queries_answerable": 3, "nodes": 12, "edges": 15, "orphan_nodes": []},
-    "artifacts": {"graph_json": "/app/output/graph.json", "answers_json": "/app/output/query_answers.json", "coverage_json": "/app/output/coverage_check.json"}
+    "artifacts": {"graph_json": "/app/output/graph.json", "query_answers_json": "/app/output/query_answers.json", "coverage_json": "/app/output/coverage_check.json"}
   },
   "evidence": [{"node": "n1", "source": "s1", "quote": "..."}],
   "uncertainty": [{"node": "n1", "issue": "实体消歧未定"}]
@@ -63,4 +63,5 @@ python scripts/validate_result.py --result /app/output/result.json --outdir /app
 ## 评分关注
 
 实体类型清楚、关系有方向、来源可回链、查询能答、图不是散点。
+
 

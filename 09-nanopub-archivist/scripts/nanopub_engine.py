@@ -391,6 +391,7 @@ def pipeline(payload: Dict[str, Any], outdir: Optional[str] = None) -> Dict[str,
             "export_check": r_export,
             "quality_check": r_quality,
             "assertion_coverage": r_cov,
+            "coverage": r_cov,
             "nanopublications": nanopubs,
         },
         "evidence": {

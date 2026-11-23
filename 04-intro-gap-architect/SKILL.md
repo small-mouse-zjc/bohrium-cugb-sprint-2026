@@ -22,7 +22,7 @@ description: 引言与相关工作写作。用于基于真实论文材料撰写/
   "status": "success | partial | needs_attention",
   "result": {
     "introduction_draft": "四部件完整成稿",
-    "paragraphs": [{"part": "背景|相关工作|空白|贡献", "text": "...", "refs": ["w1"], "status": "ok"}],
+    "paragraphs": [{"part": "背景|相关工作|空白|贡献", "text": "...", "refs": ["w1"], "source_ref": "w1", "status": "ok"}],
     "claims": [{"id": "c1", "text": "贡献", "evidence_refs": ["w2", "exp1"]}],
     "artifacts": {"draft": "/app/output/introduction_draft.md", "review": "/app/output/draft_review.json"}
   },

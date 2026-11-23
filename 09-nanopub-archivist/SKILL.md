@@ -24,15 +24,18 @@ description: Nanopublication 构建。用于把论文断言拆成原子 claim，
     "nanopublications": [
       {
         "id": "np1",
-        "assertion": {"subject": "...", "predicate": "...", "object": "...", "qualifier": "..."},
-        "evidence": [{"quote": "原文句", "anchor": "P2"}],
-        "provenance": {"source": "...", "method": "...", "conditions": "..."},
-        "confidence": "high|medium|low",
-        "status": "supported|partial|unsupported"
+        "assertion": "原文断言句",
+        "subject": "CNN方法",
+        "relation": "achieves",
+        "object": "0.92准确率",
+        "evidence": "原文证据句",
+        "evidence_location": "§4",
+        "confidence": "high"
       }
     ],
+    "provenance": {"source": "...", "method": "...", "conditions": "..."},
     "coverage": {"source_assertions": 5, "covered": 5, "missing": []},
-    "artifacts": {"nanopubs_json": "/app/output/nanopublications.json", "evidence_map_json": "/app/output/assertion_evidence_map.json"}
+    "artifacts": {"nanopublications_json": "/app/output/nanopublications.json", "assertion_evidence_map_json": "/app/output/assertion_evidence_map.json"}
   },
   "evidence": [{"np": "np1", "quote": "...", "anchor": "P2"}],
   "uncertainty": [{"np": "np1", "issue": "条件缺失"}]
@@ -67,4 +70,5 @@ python scripts/validate_result.py --result /app/output/result.json --outdir /app
 ## 评分关注
 
 原子性、证据可查、条件完整、provenance 清楚、覆盖原文主要断言。
+
 

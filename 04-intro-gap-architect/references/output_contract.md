@@ -11,7 +11,7 @@
 | 字段 | 必填 | 说明 |
 |---|---|---|
 | `introduction_draft` | 是 | 四部件完整成稿；空判 partial |
-| `paragraphs` | 是 | 每段的 part/text/refs/status |
+| `paragraphs` | 是 | 每段的 part/text/refs/source_ref/status |
 | `claims` | 是 | 贡献条目与证据 refs |
 | `artifacts` | 是 | `draft`、`review` 绝对路径，必须存在 |
 | `summary` | 否 | 四部件、引用数、空白支撑数 |
