@@ -42,7 +42,7 @@ description: LaTeX 写作与编译。用于按模板编写/修复 LaTeX 工程�
 python scripts/compile_latex.py /app/work/project --main main.tex --outdir /app/output
 ```
 
-   记下 `compile_ok`、`errors`、`missing_files`、`pages`。**不要先静态猜错，先让 TeX 报。**
+   记下 `compile_ok`、`errors`、`missing_files`、`pages`，以及 `bib_ok` / `references_ok`。脚本在检测到 `\bibliography` 或 `\addbibresource` 时会自动跑 `bibtex`/`biber`，不要手工跳过；引用未收敛（`[?]`、undefined refs）时只能按 `partial` 处理。**不要先静态猜错，先让 TeX 报。**
 3. **修一轮、编一轮**：按 `file:line` 修；每次修完立即重编。常见修法：缺包、缺文件、未定义引用、中文引擎、表格列数、数学环境未闭合。
 4. **交付**：把编译输出的 `pdf`/`source_dir`/`pdf_text_check` 映射到 `result.compiled_pdf`、`result.latex_source`、`result.pdf_text_check`，`artifacts.pdf_path` 指向真实 PDF；`compile_ok=true`、`pages>0`、`pdf_text_check.ok` 不为 `false` 才算 success，否则 `partial` 并说明卡在哪。最后跑：
 

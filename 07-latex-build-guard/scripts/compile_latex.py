@@ -267,6 +267,48 @@ def pdf_text_check(pdf: Path) -> Dict[str, Any]:
             "reason": "no_pdf_text_backend", "hint": "安装 poppler(pdftotext) 或 PyMuPDF 后可复核"}
 
 
+def _needs_bib(main_tex: Path, work: Path) -> Dict[str, bool]:
+    """判断工程是否需要 bibtex / biber，避免无参考文献的文档白跑。"""
+    text = ""
+    try:
+        text = main_tex.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+    has_bib_resource = bool(re.search(r"\\(?:bibliography|addbibresource)\s*\{", text))
+    has_bib_file = any(work.rglob("*.bib"))
+    biblatex = bool(re.search(r"\\usepackage(?:\[[^\]]*\])?\{biblatex\}", text)) or \
+        bool(re.search(r"\\addbibresource\s*\{", text))
+    return {"needed": has_bib_resource and has_bib_file,
+            "biblatex": biblatex, "has_bib_file": has_bib_file}
+
+
+def _bib_errors(blg_path: Path) -> List[str]:
+    if not blg_path.exists():
+        return []
+    try:
+        text = blg_path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return []
+    errs = []
+    for line in text.splitlines():
+        if re.search(r"(error message|I couldn't open|I found no|Repeated entry|---line)", line, re.I):
+            errs.append(line.strip()[:300])
+    return errs[:20]
+
+
+def _refs_ok(log_text: str) -> bool:
+    """编译后引用/交叉引用是否收敛；未收敛不应标 success。"""
+    low = log_text.lower()
+    patterns = [
+        r"citation .* undefined",
+        r"reference .* undefined",
+        r"there were undefined references",
+        r"rerun to get cross-references right",
+        r"label\(s\) may have changed",
+    ]
+    return not any(re.search(p, low) for p in patterns)
+
+
 def compile_project(project: str, main_tex: Optional[str] = None, engine: str = "auto",
                     outdir: Optional[str] = None, timeout: int = 240,
                     rounds: int = 3, keep_workdir: bool = False) -> Dict[str, Any]:
@@ -298,12 +340,17 @@ def compile_project(project: str, main_tex: Optional[str] = None, engine: str = 
 
     runs: List[Dict[str, Any]] = []
     chosen = None
+    bib_info = _needs_bib(main_work, work)
+    bib_runs: List[Dict[str, Any]] = []
+    bib_errors: List[str] = []
+    bib_ok = True
     if _which("latexmk"):
         flag = {"pdflatex": "-pdf", "xelatex": "-xelatex", "lualatex": "-lualatex",
                 "tectonic": "-pdf"}.get(eng, "-pdf")
         cmd = ["latexmk", flag, "-interaction=nonstopmode", "-file-line-error",
                "-halt-on-error", "-synctex=0", str(main_rel)]
         runs.append(_run(cmd, work, timeout))
+        runs[-1]["kind"] = "latexmk"
         chosen = "latexmk"
     else:
         exe = _which(eng) or _which("pdflatex")
@@ -311,17 +358,37 @@ def compile_project(project: str, main_tex: Optional[str] = None, engine: str = 
             exe = _which("xelatex") or _which("lualatex") or _which("tectonic")
             eng = Path(exe).name if exe else eng
         if exe:
-            for r in range(1, rounds + 1):
+            bib_done = False
+            for r in range(1, max(3, rounds) + 1):
                 cmd = [exe, "-interaction=nonstopmode", "-file-line-error",
                        "-halt-on-error", str(main_rel)]
                 runs.append(_run(cmd, work, timeout))
+                runs[-1]["kind"] = Path(exe).name
                 chosen = Path(exe).name
-                # 只要已产出 PDF 且上一轮没有 undefined refs，就不再多跑
                 log_path = main_work.with_suffix(".log")
-                if log_path.exists():
-                    txt = log_path.read_text(encoding="utf-8", errors="replace")
-                    if "Rerun to get" not in txt and "undefined references" not in txt.lower():
-                        break
+                log_txt = log_path.read_text(encoding="utf-8", errors="replace") if log_path.exists() else ""
+                # 首轮编译后运行文献工具；否则 \cite 在 PDF 里会一直是 [?]
+                if bib_info["needed"] and not bib_done:
+                    tool = _which("biber") if bib_info["biblatex"] else _which("bibtex")
+                    if tool:
+                        bib_cmd = [tool, str(main_rel.with_suffix(""))]
+                        brec = _run(bib_cmd, work, timeout)
+                        brec["kind"] = "biber" if bib_info["biblatex"] else "bibtex"
+                        runs.append(brec)
+                        bib_runs.append(brec)
+                        blg = main_work.with_suffix(".blg")
+                        bib_errors = _bib_errors(blg)
+                        bib_ok = brec.get("returncode") == 0 and not bib_errors
+                    else:
+                        bib_ok = False
+                        bib_errors = ["未找到 biber/bibtex，无法解析参考文献"]
+                    bib_done = True
+                    continue
+                # 引用/交叉引用已收敛才收工；否则继续让 TeX 多跑一轮
+                if _refs_ok(log_txt):
+                    break
+                if r >= max(3, rounds):
+                    break
 
     stem = main_work.with_suffix("")
     log_path = stem.with_suffix(".log")
@@ -334,7 +401,11 @@ def compile_project(project: str, main_tex: Optional[str] = None, engine: str = 
             pdf_work = cand
             break
 
-    compile_ok = pdf_work is not None and parsed["error_count"] == 0
+    tex_compile_ok = pdf_work is not None and parsed["error_count"] == 0
+    refs_ok = _refs_ok(log_text)
+    bib_ok = bool(bib_ok) and not bib_errors
+    # PDF 里还留着 [?] 或 undefined refs，不算真正编译成功
+    compile_ok = tex_compile_ok and refs_ok and bib_ok
     pages = pdf_pages(pdf_work) if pdf_work else None
     pdf_text = pdf_text_check(pdf_work) if pdf_work else {
         "ok": False, "backend": None, "chars": 0, "reason": "pdf_missing"}
@@ -360,6 +431,13 @@ def compile_project(project: str, main_tex: Optional[str] = None, engine: str = 
     result = {
         "status": "ok" if compile_ok else ("partial" if pdf_work else "error"),
         "compile_ok": compile_ok,
+        "tex_compile_ok": tex_compile_ok,
+        "references_ok": refs_ok,
+        "bib_needed": bib_info["needed"],
+        "bib_engine": "biber" if bib_info["biblatex"] else ("bibtex" if bib_info["needed"] else None),
+        "bib_ok": bib_ok,
+        "bib_runs": bib_runs,
+        "bib_errors": bib_errors,
         "engine": chosen or eng,
         "engine_requested": engine,
         "available_engines": avail,
